@@ -11,29 +11,12 @@ import {
   TaskInput,
 } from './styles'
 
-interface NewCycleFormData {
-  task: string
-  minuteAmount: number
-}
-
 export function Home() {
-  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
-    defaultValues: {
-      task: '',
-      minuteAmount: 0,
-    },
-  })
-
-  function handleCreateNewCycle(data: any) {
-    console.log(data)
-    reset()
-  }
-
-  const task = watch('task')
+  const { register, handleSubmit } = useForm()
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
+      <form action="">
         <FormContainer>
           <label htmlFor="task">Vou trabalhar em</label>
           <TaskInput
@@ -58,7 +41,6 @@ export function Home() {
             step={5}
             min={5}
             max={60}
-            {...register('minuteAmount', { valueAsNumber: true })}
           />
 
           <span>minutos.</span>
@@ -72,7 +54,7 @@ export function Home() {
           <span>0</span>
         </CountdownContainer>
 
-        <StartCountdownButton disabled={!task} type="submit">
+        <StartCountdownButton type="submit">
           <Play size={24} />
           Começar
         </StartCountdownButton>

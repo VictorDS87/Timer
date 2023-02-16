@@ -11,22 +11,11 @@ import {
   TaskInput,
 } from './styles'
 
-interface NewCycleFormData {
-  task: string
-  minuteAmount: number
-}
-
 export function Home() {
-  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
-    defaultValues: {
-      task: '',
-      minuteAmount: 0,
-    },
-  })
+  const { register, handleSubmit, watch } = useForm()
 
   function handleCreateNewCycle(data: any) {
     console.log(data)
-    reset()
   }
 
   const task = watch('task')
@@ -76,6 +65,10 @@ export function Home() {
           <Play size={24} />
           Começar
         </StartCountdownButton>
+        <button disabled={!task}>
+          <Play size={24} />
+          Começar
+        </button>
       </form>
     </HomeContainer>
   )
