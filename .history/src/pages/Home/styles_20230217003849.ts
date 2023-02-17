@@ -15,7 +15,7 @@ export const HomeContainer = styled.main`
     gap: 3.5rem;
   }
 `
-
+ 
 export const FormContainer = styled.div`
   width: 100%;
   display: flex;
@@ -52,6 +52,35 @@ export const Separator = styled.div`
   display: flex;
   justify-content: center;
 `
+const baseInput = styled.input`
+  background: transparent;
+  height: 2.5rem;
+  border: 0;
+  border-bottom: 2px solid ${(props) => props.theme['gray-500']};
+  font-weight: bold;
+  font-size: 1.125rem;
+  padding: 0 0.5rem;
+  color: white;
+
+  &:focus {
+    box-shadow: none;
+    border-color: ${(props) => props.theme['green-500']};
+  }
+
+  &::placeholder {
+    color: ${(props) => props.theme['gray-500']};
+  }
+`
+export const TaskInput = styled(baseInput)`
+  flex: 1;
+
+  &::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
+`
+export const MinuteAmountInput = styled(baseInput)`
+  width: 4rem;
+`
 
 export const StartCountdownButton = styled.button`
   width: 100%;
@@ -71,7 +100,12 @@ export const StartCountdownButton = styled.button`
   background: ${(props) => props.theme['green-500']};
   background: ${(props) => props.theme['gray-100']};
 
-  &:hover {
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
     background: ${(props) => props.theme['green-700']};
   }
 `
