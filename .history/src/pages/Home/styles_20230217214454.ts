@@ -15,7 +15,7 @@ export const HomeContainer = styled.main`
     gap: 3.5rem;
   }
 ` 
-      
+    
 export const FormContainer = styled.div`
   width: 100%;
   display: flex;
