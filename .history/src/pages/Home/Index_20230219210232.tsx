@@ -1,7 +1,6 @@
 import { Play } from 'phosphor-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { differenceInSeconds } from 'date-fns'
 
 import {
   CountdownContainer,
@@ -22,13 +21,11 @@ interface Cycle {
   id: string
   task: string
   minutesAmount: number
-  startDate: Date
 }
 
 export function Home() {
   const [cycles, setCycles] = useState<Cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
 
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     defaultValues: {
@@ -36,17 +33,6 @@ export function Home() {
       minuteAmount: 0,
     },
   })
-  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
-
-  useEffect(() => {
-    if (activeCycle) {
-      setInterval(() => {
-        setAmountSecondsPassed(
-          differenceInSeconds(new Date(), activeCycle.startDate),
-        )
-      }, 1000)
-    }
-  }, [activeCycle])
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     const id = String(new Date().getTime())
@@ -55,7 +41,6 @@ export function Home() {
       id,
       task: data.task,
       minutesAmount: data.minuteAmount,
-      startDate: new Date(),
     }
 
     setCycles((state) => [...state, newCycle])
@@ -64,14 +49,7 @@ export function Home() {
     reset()
   }
 
-  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
-  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0
-
-  const minutesAmount = Math.floor(currentSeconds / 60)
-  const secondsAmount = currentSeconds % 60
-
-  const minutes = String(minutesAmount).padStart(2, '0')
-  const seconds = String(secondsAmount).padStart(2, '0')
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   const task = watch('task')
 
@@ -109,11 +87,11 @@ export function Home() {
         </FormContainer>
 
         <CountdownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
+          <span>0</span>
+          <span>0</span>
           <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
+          <span>0</span>
+          <span>0</span>
         </CountdownContainer>
 
         <StartCountdownButton disabled={!task} type="submit">
