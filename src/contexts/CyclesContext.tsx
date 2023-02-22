@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 interface createCycloDate {
   task: string
@@ -18,6 +18,7 @@ interface CycleContextType {
   activeCycle: Cycle | undefined
   activeCycleId: string | null
   amountSecondsPassed: number
+  cycles: Cycle[]
 
   setSecondsPassed: (seconds: number) => void
   MarkCurrentCycleAsFinished: () => void
@@ -38,6 +39,12 @@ export function CyclesContextProvider({
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(cycles)
+
+    localStorage.setItem('@pomodoro-timer:cycle-state-1.0.0', stateJSON)
+  }, [cycles])
 
   function MarkCurrentCycleAsFinished() {
     setCycles((state) =>
@@ -88,6 +95,7 @@ export function CyclesContextProvider({
   return (
     <CyclesContext.Provider
       value={{
+        cycles,
         activeCycle,
         activeCycleId,
         MarkCurrentCycleAsFinished,
