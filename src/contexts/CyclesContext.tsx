@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from 'react'
+import sadKids from './Sad-Kids.mp3'
 
 interface createCycloDate {
   task: string
@@ -25,6 +26,7 @@ interface CycleContextType {
   createNewCycle: (data: createCycloDate) => void
   interrupTCycle: () => void
 }
+const song = new Audio(sadKids)
 
 export const CyclesContext = createContext({} as CycleContextType)
 
@@ -50,12 +52,16 @@ export function CyclesContextProvider({
     setCycles((state) =>
       state.map((cycle) => {
         if (cycle.id === activeCycleId) {
-          return { ...cycle, fineshedDate: new Date() }
+          console.log(song)
+          song.play()
+
+          return { ...cycle, finishedDate: new Date() }
         } else {
           return cycle
         }
       }),
     )
+    setActiveCycleId(null)
   }
 
   function setSecondsPassed(seconds: number) {
@@ -76,6 +82,8 @@ export function CyclesContextProvider({
     setActiveCycleId(id)
 
     setAmountSecondsPassed(0)
+
+    song.pause()
     // reset()
   }
 
@@ -89,6 +97,7 @@ export function CyclesContextProvider({
         }
       }),
     )
+
     setActiveCycleId(null)
   }
 
