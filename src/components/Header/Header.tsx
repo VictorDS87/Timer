@@ -26,13 +26,13 @@ export function Header() {
       <nav>
         <li>
           {activeSong ? (
-            <StartSongButton onClick={stopSong} type="button">
-              <Play size={24} />
-            </StartSongButton>
-          ) : (
-            <StopSongButton onClick={playSong} type="submit">
+            <StopSongButton onClick={stopSong} type="submit">
               <Pause size={24} />
             </StopSongButton>
+          ) : (
+            <StartSongButton onClick={playSong} type="button">
+              <Play size={24} />
+            </StartSongButton>
           )}
         </li>
 
