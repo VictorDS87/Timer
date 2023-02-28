@@ -31,4 +31,30 @@ export const HeaderContainer = styled.header`
       }
     }
   }
+
+  li {
+    display: flex;
+    list-style: none;
+    align-items: center;
+
+    margin-right: 25.7rem;
+
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+
+    &:hover {
+      border-bottom: 3px solid ${(props) => props.theme['green-500']};
+    }
+  }
 `
+
+export const BaseSongButton = styled.button`
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+`
+
+export const StartSongButton = styled(BaseSongButton)``
+
+export const StopSongButton = styled(BaseSongButton)``
