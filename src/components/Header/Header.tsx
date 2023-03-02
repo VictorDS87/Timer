@@ -5,9 +5,9 @@ import { NavLink } from 'react-router-dom'
 
 import LogoIgnite from '../../assets/logoIgnite.svg'
 import { useState } from 'react'
-import songTheKing from './theKing.mp3'
+import lofi from './lofi.mp3'
 
-const song = new Audio(songTheKing)
+const song = new Audio(lofi)
 export function Header() {
   const [activeSong, setActiveSong] = useState<string | null>(null)
   function playSong() {
