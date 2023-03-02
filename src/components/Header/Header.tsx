@@ -23,6 +23,7 @@ export function Header() {
   return (
     <HeaderContainer>
       <img src={LogoIgnite} alt="" />
+
       <nav>
         <li>
           {activeSong ? (
